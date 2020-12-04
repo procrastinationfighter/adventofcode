@@ -96,20 +96,17 @@ bool is_hgt_valid(const std::string &passport) {
 
 bool is_hcl_valid(const std::string &passport) {
   static const std::regex r(R"( hcl:#[0-9a-f]{6} )");
-  static std::smatch match;
-  return std::regex_search(passport, match, r);
+  return std::regex_search(passport, r);
 }
 
 bool is_ecl_valid(const std::string &passport) {
   static const std::regex r(R"(ecl:(amb|blu|brn|gry|grn|hzl|oth) )");
-  static std::smatch match;
-  return std::regex_search(passport, match, r);
+  return std::regex_search(passport, r);
 }
 
 bool is_pid_valid(const std::string &passport) {
   static const std::regex r(R"( pid:\d{9} )");
-  static std::smatch match;
-  return std::regex_search(passport, match, r);
+  return std::regex_search(passport, r);
 }
 
 
