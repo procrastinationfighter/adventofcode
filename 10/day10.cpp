@@ -33,7 +33,6 @@ int part_one() {
 
 std::int64_t part_two() {
   std::vector<std::int64_t> DP(input.size(), 1);
-
   // Normally we should not cast size_t to int,
   // but the input is not too big and we don't want the loop to be ugly
   for(int i = input.size() - 2; i >= 0; i--) {
