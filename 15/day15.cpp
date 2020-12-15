@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <map>
+#include <unordered_map>
 
 std::vector<int> input;
 
@@ -15,24 +16,24 @@ void init() {
     }
 }
 
-long long count(long long round) {
-    std::map<long long, long long> numbers;
+unsigned count(unsigned round) {
+    std::unordered_map<unsigned, unsigned> numbers;
 
-    long long last = input[0];
+    unsigned last = input[0];
 
-    for(long long i = 1; i < input.size(); i++) {
-
+    for(unsigned i = 1; i < input.size(); i++) {
         numbers[last] = i; // We use i because we're counting from 0, but turns are counted from 1.
         last = input[i];
     }
 
-    for(long long i = input.size(); i < round; i++) {
-        if(numbers.find(last) == numbers.end()) {
+    for(unsigned i = input.size(); i < round; i++) {
+        int nr_last = numbers[last];
+        if(nr_last == 0) {
             numbers[last] = i;
             last = 0;
         }
         else {
-            long long curr = i - numbers[last];
+            unsigned curr = i - nr_last;
             numbers[last] = i;
             last = curr;
         }
@@ -41,11 +42,11 @@ long long count(long long round) {
     return last;
 }
 
-long long part_one() {
+unsigned part_one() {
     return count(2020);
 }
 
-long long part_two() {
+unsigned part_two() {
     return count(30000000);
 }
 
