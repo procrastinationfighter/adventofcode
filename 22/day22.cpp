@@ -61,6 +61,7 @@ long part_one() {
     return sum;
 }
 
+// NOT recommendable - a lot of redundant copying of large decks. But it works.
 std::deque<int> clone_deck(std::deque<int> deck, int number_of_cards) {
     while(deck.size() > number_of_cards) {
         deck.pop_back();
