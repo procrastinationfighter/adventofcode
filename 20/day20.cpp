@@ -1,6 +1,7 @@
 #include <iostream>
 #include <utility>
 #include <vector>
+#include <regex>
 
 const int TILE_SIZE = 9;
 
@@ -111,6 +112,7 @@ class Image {
 
   bool try_appending(Tile *tile) {
       //todo BFS/DFS
+      return false;
   }
 
   long long get_corners_multiplication() {
@@ -146,7 +148,39 @@ class Image {
 
 };
 
-int main() {
+std::vector<Tile> input;
 
+bool read_tile() {
+    std::string curr;
+    static std::regex tile_name(R"(Tile (\d+):)");
+    std::getline(std::cin, curr);
+    if(curr.empty()) {
+        return false;
+    }
+    else {
+        std::smatch match;
+        std::regex_match(curr, match, tile_name);
+        int number = std::stoi(match[1].str());
+        std::vector<std::string> tile;
+        while(std::getline(std::cin, curr) && !curr.empty()) {
+            tile.push_back(curr);
+        }
+        input.emplace_back(tile, number);
+        std::cout << number << "\n";
+        for(auto &y : tile) {
+            std::cout << y << "\n";
+        }
+        std::cout << "\n";
+        return true;
+    }
+}
+
+void init() {
+    while (read_tile());
+        // Empty.
+}
+
+int main() {
+    init();
     return 0;
 }
