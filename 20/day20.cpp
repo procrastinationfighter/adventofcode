@@ -21,7 +21,7 @@ class Tile {
 
   // Rotates by 90 degrees
   void rotate() {
-      std::vector<std::string> temp(TILE_SIZE, std::string(TILE_SIZE, '*'));
+      std::vector<std::string> temp(pattern.size(), std::string(pattern.size(), '*'));
       int N = temp.size();
       for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++)
@@ -169,6 +169,7 @@ unsigned long long part_one() {
 std::string monster[3] = {"                  # ",
                           "#    ##    ##    ###",
                           " #  #  #  #  #  #   "};
+int monster_length = monster[0].length();
 
 void create_sea() {
     for (int row = 0; row < grid_side; row++) {
@@ -185,14 +186,62 @@ void create_sea() {
     }
 }
 
-int calculate_roughness(std::vector<std::string> pattern) {
+bool check_monster(int i, int j, const std::vector<std::string> &pattern) {
+    for (int x = 0; x < monster_length; x++) {
+        for (int y = 0; y < 3; y++) {
+            if (pattern[i + y][j + x] == '.' && monster[y][x] == '#') {
+                return false;
+            }
+        }
+    }
+    return true;
+}
 
+bool erase_monster(int i, int j, std::vector<std::string> &pattern) {
+    for (int x = 0; x < monster_length; x++) {
+        for (int y = 0; y < 3; y++) {
+            if (monster[y][x] == '#') {
+                pattern[i + y][j + x] = 'O';
+            }
+        }
+    }
+    return true;
+}
+
+int count_hashes(std::vector<std::string> &pattern) {
+    int count = 0;
+    for (auto &row : pattern) {
+        for (char ch : row) {
+            if (ch == '#') {
+                count++;
+            }
+        }
+    }
+    return count;
+}
+
+int calculate_roughness(std::vector<std::string> pattern) {
+    int found = 0;
+    for (int i = 0; i + 2 < pattern.size(); i++) {
+        for (int j = 0; j + monster_length - 1 < pattern.size(); j++) {
+            if (check_monster(i, j, pattern)) {
+                erase_monster(i, j, pattern);
+                found++;
+            }
+        }
+    }
+    if (found > 0) {
+        return count_hashes(pattern);
+    } else {
+        return 0;
+    }
 }
 
 int part_two() {
     int max_rough = 0;
     create_sea();
     Tile sea_tile(sea, 2137);
+
     for (int i = 0; i < 2; i++) {
         for (int j = 0; j < 4; j++) {
             max_rough = std::max(max_rough, calculate_roughness(sea_tile.get_pattern()));
@@ -200,14 +249,11 @@ int part_two() {
         }
         sea_tile.flip();
     }
-    return 0;
+    return max_rough;
 }
 
 int main() {
     init();
     std::cout << part_one() << " " << part_two() << "\n";
-    create_sea();
-    Tile s(sea, 2137);
-    s.print_tile();
     return 0;
 }
