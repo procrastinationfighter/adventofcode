@@ -174,7 +174,6 @@ def part1() -> int:
         tile_id = machine.run_machine(q)
         tiles[(x, y)] = tile_id
 
-    print(tiles)
     count = 0
     for tile_type in tiles.values():
         if tile_type == BLOCK:
@@ -183,4 +182,29 @@ def part1() -> int:
     return count
 
 
+def part2():
+    input_code[0] = 2
+    machine = OpcodeMachine(input_code)
+    q = queue.Queue()
+    tiles: list[list[int]] = [[0 for _ in range(20)] for _ in range(44)]
+    output_count = 0
+
+    while not machine.has_finished:
+        x = machine.run_machine(q)
+        if x is None:
+            if machine.has_finished:
+                break
+            else:
+                print(output_count)
+                output_count = 0
+                q.put(0)
+                x = machine.run_machine(q)
+        y = machine.run_machine(q)
+        tile_id = machine.run_machine(q)
+        tiles[x][y] = tile_id
+        output_count += 1
+
+
 print("Part 1", part1())
+
+part2()
