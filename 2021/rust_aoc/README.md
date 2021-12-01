@@ -1,4 +1,4 @@
-#Advent of code 2021
+# Advent of code 2021
 
 This year, I decided to solve the problems in Rust. 
 In order to run a solution for a particular problem, run the command `cargo run --bin day<N>`,
