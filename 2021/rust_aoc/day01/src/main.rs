@@ -1,7 +1,9 @@
 use std::fs;
 
+const INPUT_FILE: &str = "day01/src/input";
+
 fn parse() -> Vec<u32> {
-    let x = fs::read_to_string("input").expect("file not read");
+    let x = fs::read_to_string(INPUT_FILE).expect("file not read");
     x.split_whitespace()
         .map(|s| s.parse().expect("parse error"))
         .collect()
