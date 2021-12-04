@@ -11,7 +11,7 @@ fn parse() -> Vec<(String, u32)> {
         .collect()
 }
 
-fn part_one(v: &Vec<(String, u32)>) -> u64 {
+fn part_one(v: &[(String, u32)]) -> u64 {
     let mut h: i64 = 0;
     let mut s = 0;
     for (dir, val) in v {
@@ -26,7 +26,7 @@ fn part_one(v: &Vec<(String, u32)>) -> u64 {
     (h * (s as i64)) as u64
 }
 
-fn part_two(v: &Vec<(String, u32)>) -> u64 {
+fn part_two(v: &[(String, u32)]) -> u64 {
     let mut aim: i64 = 0;
     let mut h: i64 = 0;
     let mut s = 0;

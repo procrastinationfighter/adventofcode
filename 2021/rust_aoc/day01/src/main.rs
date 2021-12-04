@@ -31,10 +31,8 @@ fn second_part(nums: &[u32]) -> u32 {
 
     for i in 0..(nums.len() - 2) {
         let sum = nums[i] + nums[i + 1] + nums[i + 2];
-        if i != 0 {
-            if sum > last {
-                count += 1;
-            }
+        if i != 0 && sum > last {
+            count += 1;
         }
 
         last = sum;
