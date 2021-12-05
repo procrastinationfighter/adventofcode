@@ -7,7 +7,8 @@ fn parse() -> Vec<(String, u32)> {
     x.lines()
         .map(|s| {
             let x: Vec<&str> = s.split_whitespace().collect();
-            (x[0].to_string(), x[1].parse().expect("parse error"))})
+            (x[0].to_string(), x[1].parse().expect("parse error"))
+        })
         .collect()
 }
 
@@ -19,7 +20,7 @@ fn part_one(v: &[(String, u32)]) -> u64 {
             "forward" => s += *val,
             "up" => h -= *val as i64,
             "down" => h += *val as i64,
-            _ => panic!("unknown direction")
+            _ => panic!("unknown direction"),
         };
     }
 
@@ -35,10 +36,10 @@ fn part_two(v: &[(String, u32)]) -> u64 {
             "forward" => {
                 s += *val;
                 h += (*val as i64) * aim
-            },
+            }
             "up" => aim -= *val as i64,
             "down" => aim += *val as i64,
-            _ => panic!("unknown direction")
+            _ => panic!("unknown direction"),
         };
     }
 

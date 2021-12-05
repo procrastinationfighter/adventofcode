@@ -8,10 +8,9 @@ struct BingoBoard {
 }
 
 impl BingoBoard {
-
     fn mark_num(&mut self, num: i8) -> Option<u32> {
         if self.solved {
-            return None
+            return None;
         }
 
         for i in 0..5 {
@@ -63,16 +62,29 @@ impl BingoBoard {
 fn parse() -> (Vec<i8>, Vec<BingoBoard>) {
     let x = fs::read_to_string(INPUT_FILE).expect("file not read");
     let mut iter = x.lines();
-    let numbers: Vec<i8> = iter.next().unwrap().split(',').map(|y| y.parse().unwrap()).collect();
+    let numbers: Vec<i8> = iter
+        .next()
+        .unwrap()
+        .split(',')
+        .map(|y| y.parse().unwrap())
+        .collect();
     let mut boards = vec![];
 
     while let Some(_) = iter.next() {
         let mut arr: [[i8; 5]; 5] = [[0i8; 5]; 5];
         for line in &mut arr {
-            let nums: Vec<i8> = iter.next().unwrap().split_whitespace().map(|y| y.parse().unwrap()).collect();
+            let nums: Vec<i8> = iter
+                .next()
+                .unwrap()
+                .split_whitespace()
+                .map(|y| y.parse().unwrap())
+                .collect();
             line[..5].clone_from_slice(&nums[..5]);
         }
-        boards.push(BingoBoard{board: arr, solved: false});
+        boards.push(BingoBoard {
+            board: arr,
+            solved: false,
+        });
     }
     (numbers, boards)
 }
@@ -107,5 +119,9 @@ fn part_two(nums: &[i8], mut boards: Vec<BingoBoard>) -> u32 {
 
 fn main() {
     let (nums, boards) = parse();
-    println!("Part one: {}, part two: {}", part_one(&nums, boards.clone()), part_two(&nums, boards));
+    println!(
+        "Part one: {}, part two: {}",
+        part_one(&nums, boards.clone()),
+        part_two(&nums, boards)
+    );
 }

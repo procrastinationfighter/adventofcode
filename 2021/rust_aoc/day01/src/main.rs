@@ -43,5 +43,9 @@ fn second_part(nums: &[u32]) -> u32 {
 
 fn main() {
     let numbers = parse();
-    println!("First part: {}, second part: {}", first_part(&numbers), second_part(&numbers));
+    println!(
+        "First part: {}, second part: {}",
+        first_part(&numbers),
+        second_part(&numbers)
+    );
 }

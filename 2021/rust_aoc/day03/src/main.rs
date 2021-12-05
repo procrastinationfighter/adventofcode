@@ -12,7 +12,14 @@ fn calculate_prevailing(v: &[String]) -> Vec<i32> {
 
     for num in v {
         for (i, ch) in num.chars().enumerate() {
-            prevailing[i] += if ch == '1' {1} else if ch == '0' {-1} else {println!("Wrong char!"); 0};
+            prevailing[i] += if ch == '1' {
+                1
+            } else if ch == '0' {
+                -1
+            } else {
+                println!("Wrong char!");
+                0
+            };
         }
     }
 
@@ -44,7 +51,11 @@ fn get_rating(v: &[String], dominating: bool) -> u32 {
         let wanted = {
             let mut sum = 0;
             for num in nums.iter() {
-                sum += if num.as_bytes()[i] as char == '1' {1} else {-1};
+                sum += if num.as_bytes()[i] as char == '1' {
+                    1
+                } else {
+                    -1
+                };
             }
             if (sum >= 0 && dominating) || (sum < 0 && !dominating) {
                 '1'
