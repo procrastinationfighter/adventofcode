@@ -15,18 +15,23 @@ struct Scanner {
 
 fn parse() -> Vec<Vec<Point>> {
     let input = fs::read_to_string(INPUT_FILE).unwrap();
-    input.split("\n\n").map(|scanner| {
-        let mut line_iter = scanner.lines();
-        line_iter.next();
-        line_iter.map(|line| {
-            let (x, yz) = line.split_once(",").unwrap();
-            let (y, z) = yz.split_once(",").unwrap();
-            (x.parse().unwrap(),
-             y.parse().unwrap(),
-             z.parse().expect(&*format!("{}", z)))
+    input
+        .split("\n\n")
+        .map(|scanner| {
+            let mut line_iter = scanner.lines();
+            line_iter.next();
+            line_iter
+                .map(|line| {
+                    let (x, yz) = line.split_once(",").unwrap();
+                    let (y, z) = yz.split_once(",").unwrap();
+                    (
+                        x.parse().unwrap(),
+                        y.parse().unwrap(),
+                        z.parse().expect(&*format!("{}", z)),
+                    )
+                })
+                .collect()
         })
-            .collect()
-    })
         .collect()
 }
 
